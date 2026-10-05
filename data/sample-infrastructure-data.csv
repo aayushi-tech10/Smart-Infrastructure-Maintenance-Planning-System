@@ -1,0 +1,5 @@
+id,infrastructure,type,location,condition,severity,priority,status
+I001,Main Road,Road,Zone A,Critical,High,1,Pending
+I002,City Bridge,Bridge,Zone B,Moderate,Medium,3,Pending
+I003,Streetlight 12,Streetlight,Zone C,Severe,High,2,Pending
+I004,Park Road,Road,Zone D,Good,Low,4,Pending
