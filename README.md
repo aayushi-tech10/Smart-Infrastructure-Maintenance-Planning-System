@@ -1,169 +1,110 @@
 # Smart Infrastructure Maintenance Planning System
 
-## Overview
+A beginner-friendly **Java + DSA-II** console prototype that organizes infrastructure records and helps maintenance teams review urgent tasks first.
 
-The **Smart Infrastructure Maintenance Planning System** is a DSA-based project designed to organize infrastructure maintenance information and help prioritize maintenance activities.
+## Problem statement
+Infrastructure assets such as roads, bridges and streetlights need inspection and repair. When many records exist, it can be difficult to find an asset, track its status and decide which task should be handled first.
 
-The system considers infrastructure assets such as roads, bridges, streetlights, drainage systems and public facilities. Each asset can have information such as condition, severity, location, maintenance status and maintenance history.
+This prototype demonstrates a small, transparent workflow using a CSV dataset and core data structures. It is an academic prototype, not a production safety or engineering system.
 
-The main idea is to use appropriate **Data Structures and Algorithms** to store, search, organize and prioritize maintenance records efficiently.
+## Features
+- Load infrastructure records from `data/sample-infrastructure-data.csv`.
+- Display all records.
+- Search for an asset by ID.
+- Create a maintenance queue using Java's `PriorityQueue`.
+- Sort records by priority.
+- Update a record's status for the current program session.
+- Validate basic input and report malformed CSV rows.
 
-## Problem Statement
+**Priority rule:** a smaller number means a more urgent task (priority 1 is shown first). The current sample values are illustrative and must not be interpreted as real inspection data.
 
-Infrastructure requires regular inspection and maintenance. When the number of infrastructure assets and maintenance requests increases, managing them manually becomes difficult.
+## Requirements
+- Java Development Kit (JDK) 17 or later.
+- A terminal / command prompt.
 
-The proposed system aims to answer a simple question:
-
-> **Which infrastructure component should be maintained first?**
-
-Maintenance tasks can have different urgency levels. A critical bridge issue should be handled before a minor streetlight issue. Therefore, the system will organize maintenance records and prioritize tasks based on their condition and severity.
-
-## Problem Context
-
-Infrastructure maintenance data can come from inspections, maintenance history, complaints and condition assessments.
-
-The main difficulties are:
-- Managing a growing number of infrastructure records.
-- Searching for a particular infrastructure asset.
-- Tracking condition and maintenance status.
-- Representing relationships between connected infrastructure.
-- Prioritizing urgent maintenance tasks.
-
-## Objectives
-
-- Organize infrastructure and maintenance records efficiently.
-- Search and update infrastructure information.
-- Represent relationships between infrastructure components.
-- Prioritize maintenance tasks according to urgency and severity.
-- Apply DSA concepts to a real-world maintenance problem.
-- Develop a simple and understandable maintenance planning system.
-
-## Proposed DSA Concepts
-
-| DSA Concept | Proposed Application |
-|---|---|
-| Trees | Organize infrastructure information hierarchically |
-| Binary Search Tree | Search infrastructure records using a key such as ID |
-| AVL Tree | Maintain balanced searching of records |
-| Graphs | Represent relationships and connectivity between infrastructure |
-| Adjacency List | Store sparse connections between infrastructure components |
-| Binary Heap / Priority Queue | Prioritize maintenance tasks |
-| Searching | Find infrastructure records |
-| Sorting | Arrange maintenance records by priority or condition |
-
-## System Workflow
-
-```
-Infrastructure Data
-       ↓
-Condition Assessment
-       ↓
-Maintenance Request
-       ↓
-Priority Assignment
-       ↓
-Priority Queue
-       ↓
-Highest Priority Task
-       ↓
-Maintenance Action
-       ↓
-Update Infrastructure Record
+Check Java installation:
+```bash
+java -version
+javac -version
 ```
 
-## Example
+## Run the program
+Run these commands from the repository root.
 
-Suppose the system contains the following maintenance requests:
-
-| ID | Infrastructure | Condition | Priority |
-|---|---|---|---:|
-| I001 | Road A | Critical | 1 |
-| I002 | Bridge B | Moderate | 3 |
-| I003 | Streetlight C | Severe | 2 |
-| I004 | Road D | Good | 4 |
-
-The priority queue will place **Road A** first because it has the highest maintenance priority.
-
-## Graph Representation
-
-Infrastructure components can be represented as vertices and their relationships or connections as edges.
-
-Example:
-
-```
-Road A ─── Road B
-  │           │
-  │           │
-Bridge C ─── Road D
+### Windows (PowerShell or Command Prompt)
+```powershell
+javac -d out src/main/java/Main.java
+java -cp out Main
 ```
 
-An **adjacency list** can be used when the infrastructure network contains relatively sparse connections.
+### macOS / Linux
+```bash
+javac -d out src/main/java/Main.java
+java -cp out Main
+```
 
-## Target Users
+To use a different CSV file, pass its path after the class name:
+```bash
+java -cp out Main path/to/your-data.csv
+```
 
-- Municipal authorities
-- Public works departments
-- Infrastructure managers
-- Maintenance teams
-- Facility managers
-- System administrators
+## Menu
+1. View all infrastructure records
+2. Search by asset ID
+3. Show maintenance queue
+4. Update maintenance status
+5. Show records sorted by priority
+0. Exit
 
-## Current Status
+Status changes are held in memory only and reset when the application exits. The source CSV is not modified.
 
-### Month 1 – Problem Understanding & Initial Progress
+## DSA concepts demonstrated
 
-Completed:
-- Project problem identification.
-- Background study.
-- Requirement identification.
-- Stakeholder identification.
-- Initial literature review.
-- Study of DSA-II Trees and Graphs.
-- Mapping of DSA concepts to the proposed system.
-- Initial system workflow and maintenance-priority concept.
+| Concept | Use in this prototype | Expected complexity |
+|---|---|---|
+| ArrayList | Stores the loaded asset records | Append: amortized O(1); full scan: O(n) |
+| Linear search | Finds an asset by ID | O(n) |
+| PriorityQueue (binary heap) | Processes non-completed tasks by ascending priority | Offer/poll: O(log n); peek: O(1) |
+| Comparator / sorting | Orders assets by priority, then ID | O(n log n) |
+| CSV file input | Loads the initial dataset | O(n) records, assuming bounded row length |
 
-The actual implementation and performance evaluation are planned for later project stages.
+The graph algorithms (BFS, DFS, connected components and Dijkstra) remain planned extensions; they are not claimed as implemented in this initial version.
 
-## Development Plan
+## Repository structure
+```text
+data/
+  sample-infrastructure-data.csv
+docs/
+  Project-Documentation.md
+  PBL-Progress-Report-I.md
+diagrams/
+  system-workflow.md
+src/
+  main/java/Main.java
+  README.md
+.gitignore
+LICENSE
+README.md
+```
 
-### Month 1
-Problem understanding, background research, requirements and DSA concept identification.
+## Dataset format
+The CSV header is:
+```text
+id,infrastructure,type,location,condition,severity,priority,status
+```
+Use one record per line. Keep values comma-free in this simple CSV reader.
 
-### Month 2
-System design, data representation, initial implementation and testing of selected DSA concepts.
+## Limitations and next steps
+- The included dataset is synthetic and only for demonstration.
+- Status changes are not persisted after exit.
+- The current prototype does not calculate priority automatically; it uses the supplied numeric priority.
+- It does not yet store network edges or run graph algorithms.
+- A future version can add CSV persistence, graph connectivity, BFS/DFS, Dijkstra with non-negative edge weights, unit tests and a GUI.
 
-### Month 3
-Integration, testing, optimization, documentation and final demonstration.
+## Research background
+Yamín, D., Medaglia, A. L., & Correal, J. F. (2025). *Transportation infrastructure maintenance planning: An exact column enumeration approach*. Computers & Operations Research, 184, 107246. https://doi.org/10.1016/j.cor.2025.107246
 
-## Future Enhancements
+This paper motivates the planning and resource-prioritization problem. Its optimization method is not the same as this prototype's priority queue.
 
-Possible future enhancements include:
-- Predictive maintenance.
-- Sensor/IoT-based condition monitoring.
-- Automatic priority calculation.
-- Historical maintenance analysis.
-- Cost-based maintenance planning.
-- Geographic visualization.
-- Advanced failure prediction.
-
-## Project Scope
-
-The current project focuses primarily on the **DSA-based organization and prioritization of infrastructure maintenance information**. Advanced AI, IoT and predictive features are considered future enhancements rather than core Month 1 implementation.
-
-## Conclusion
-
-The Smart Infrastructure Maintenance Planning System provides a practical application of Data Structures and Algorithms to infrastructure maintenance.
-
-Trees can support hierarchical organization and searching, graphs can represent infrastructure relationships, and priority queues can help process urgent maintenance tasks first.
-
-The project will progressively move from problem understanding and conceptual design toward implementation and testing in the later review stages.
-
-## Documentation
-
-The project documentation and PBL progress reports will be maintained in the `docs/` directory.
-
-## Status
-
-**Project Stage:** Month 1 – Problem Understanding & Initial Progress
-
-**Overall Progress:** 25%
+## Academic integrity note
+Clearly distinguish implemented features from proposed features in progress reports and viva answers. Replace the synthetic dataset with approved, verified data if your instructor requires real observations.
