@@ -148,12 +148,6 @@ public class Main {
     }
 
     private void showSortedByPriority() {
-        assets.stream()
-            .sorted(Comparator.comparingInt(InfrastructureAsset::getPriority)
-                .thenComparing(InfrastructureAsset::getId))
-            .forEachOrdered(asset -> {
-                // Print the table header only once before the first row.
-            });
         printHeader();
         assets.stream()
             .sorted(Comparator.comparingInt(InfrastructureAsset::getPriority)
